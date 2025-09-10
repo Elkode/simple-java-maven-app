@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
 
       # --- 2a: Normalize to 1.0.0 if needed, else bump PATCH ---
       - name: Normalize/bump version in pom.xml
