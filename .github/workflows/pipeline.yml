@@ -44,6 +44,16 @@ jobs:
           echo "NEW_VERSION=${NEW}" >> $GITHUB_ENV
           mvn -q versions:set -DnewVersion="${NEW}" -DgenerateBackupPoms=false
 
+      - name: Read new version from pom.xml
+        run: |
+          NEW=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+          if [ -z "$NEW" ]; then
+            echo "ERROR: project.version is empty"
+            exit 1
+          fi
+          echo "NEW_VERSION=$NEW" >> $GITHUB_ENV
+          echo "Using version: $NEW"
+
       - name: Commit version bump
         run: |
           git config user.name  "github-actions"
